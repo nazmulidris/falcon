@@ -25,7 +25,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LauncherActivity"
-            android:label="@string/launcher_activity_label"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

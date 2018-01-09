@@ -16,6 +16,5 @@
 
 <resources>
     <string name="app_name">A study in RecyclerView</string>
-    <string name="launcher_activity_label">RecyclerView Experiment picker</string>
     <string name="title_activity_vertical_list">Vertical RecyclerView</string>
 </resources>
