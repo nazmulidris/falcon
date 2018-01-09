@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 Nazmul Idris. All rights reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +14,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">A study in RecyclerView</string>
-    <string name="launcher_activity_label">RecyclerView Experiment picker</string>
-    <string name="title_activity_vertical_list">Vertical RecyclerView</string>
-</resources>
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rv_launcher_container"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" />
