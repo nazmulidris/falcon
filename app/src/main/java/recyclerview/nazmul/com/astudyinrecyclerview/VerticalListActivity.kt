@@ -18,12 +18,68 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 
 import android.app.Activity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import org.jetbrains.anko.find
+import org.jetbrains.anko.layoutInflater
 
 class VerticalListActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertical_list)
+        find<RecyclerView>(R.id.rv_vertical_list_container).let {
+            setup(it)
+        }
+    }
+
+    private fun setup(recyclerView: RecyclerView) {
+        // Set layout manager
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        // Set adapter
+        recyclerView.adapter = DataAdapter()
+    }
+
+    private class DataAdapter : RecyclerView.Adapter<DataAdapter.RowViewHolder>() {
+
+        // Data
+        val data = listOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight")
+
+        // RecyclerView.Adapter implementation
+        override fun getItemCount(): Int {
+            return data.size
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
+            parent.context.layoutInflater.inflate(
+                    R.layout.item_vertical_list_row,
+                    parent,
+                    false).let {
+                return RowViewHolder(it)
+            }
+        }
+
+        override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
+            holder.bindToDataItem(data[position])
+        }
+
+        // ViewHolder (row renderer) implementation
+        class RowViewHolder : RecyclerView.ViewHolder {
+            val rowText: TextView
+
+            constructor(itemView: View) : super(itemView) {
+                rowText = itemView.find(R.id.text_vertical_list_row)
+            }
+
+            fun bindToDataItem(data: String) {
+                rowText.text = data
+            }
+
+        }
+
     }
 
 }
