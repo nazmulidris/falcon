@@ -41,7 +41,10 @@ class VerticalListActivity : Activity() {
 
     private fun setup(recyclerView: RecyclerView) {
         // Set layout manager
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(
+                this,
+                LinearLayoutManager.VERTICAL,
+                false)
         // Set adapter
         recyclerView.adapter = DataAdapter(object : ItemClickListener<String> {
             override fun onClick(item: String) {
