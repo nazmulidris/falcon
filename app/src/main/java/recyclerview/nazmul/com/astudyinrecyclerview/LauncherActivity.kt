@@ -106,6 +106,12 @@ class LauncherActivity : AppCompatActivity() {
                     ExperimentName.HorizontalList.name -> {
                         ctx.startActivity(ctx.intentFor<HorizontalListActivity>().singleTop())
                     }
+                    ExperimentName.Grid.name -> {
+                        ctx.startActivity(ctx.intentFor<VerticalGridActivity>().singleTop())
+                    }
+                    ExperimentName.GridHorizontal.name -> {
+                        ctx.startActivity(ctx.intentFor<HorizontalGridActivity>().singleTop())
+                    }
                     else -> {
                         snackbar(ctx.find<View>(android.R.id.content),
                                 "${item.name} was clicked")
@@ -128,7 +134,8 @@ class LauncherActivity : AppCompatActivity() {
     private enum class ExperimentName(val label: String) {
         VerticalList("Vertical List"),
         HorizontalList("Horizontal List"),
-        Grid("Uniform Grid"),
+        Grid("Uniform Grid - Vertical"),
+        GridHorizontal("Uniform Grid - Horizontal"),
         IrregularGrid("Irregular Grid")
     }
 
