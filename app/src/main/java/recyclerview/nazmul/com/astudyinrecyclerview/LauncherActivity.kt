@@ -103,6 +103,9 @@ class LauncherActivity : AppCompatActivity() {
                     ExperimentName.VerticalList.name -> {
                         ctx.startActivity(ctx.intentFor<VerticalListActivity>().singleTop())
                     }
+                    ExperimentName.HorizontalList.name -> {
+                        ctx.startActivity(ctx.intentFor<HorizontalListActivity>().singleTop())
+                    }
                     else -> {
                         snackbar(ctx.find<View>(android.R.id.content),
                                 "${item.name} was clicked")

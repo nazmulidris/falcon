@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".VerticalListActivity" />
+        <activity android:name=".HorizontalListActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
