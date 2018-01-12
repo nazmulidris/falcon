@@ -18,13 +18,16 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 
 import android.app.Activity
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class VerticalListActivity : Activity() {
 
@@ -40,10 +43,18 @@ class VerticalListActivity : Activity() {
         // Set layout manager
         recyclerView.layoutManager = LinearLayoutManager(this)
         // Set adapter
-        recyclerView.adapter = DataAdapter()
+        recyclerView.adapter = DataAdapter(object : ItemClickListener<String> {
+            override fun onClick(item: String) {
+                snackbar(find<View>(android.R.id.content), item)
+            }
+        })
+        // Set decoration
+        recyclerView.addItemDecoration(
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
-    private class DataAdapter : RecyclerView.Adapter<DataAdapter.RowViewHolder>() {
+    private class DataAdapter(val clickListener: ItemClickListener<String>) :
+            RecyclerView.Adapter<RowViewHolder>() {
 
         // Data
         val data = listOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight")
@@ -63,23 +74,29 @@ class VerticalListActivity : Activity() {
         }
 
         override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
-            holder.bindToDataItem(data[position])
+            holder.bindToDataItem(data[position], clickListener)
         }
 
-        // ViewHolder (row renderer) implementation
-        class RowViewHolder : RecyclerView.ViewHolder {
-            val rowText: TextView
+    }
 
-            constructor(itemView: View) : super(itemView) {
-                rowText = itemView.find(R.id.text_vertical_list_row)
-            }
+    // ViewHolder (row renderer) implementation
+    private class RowViewHolder(itemView: View) :
+            RecyclerView.ViewHolder(itemView) {
+        val rowText: TextView
 
-            fun bindToDataItem(data: String) {
-                rowText.text = data
-            }
-
+        init {
+            rowText = itemView.find(R.id.text_vertical_list_row)
         }
 
+        fun bindToDataItem(data: String, clickListener: ItemClickListener<String>) {
+            rowText.text = data
+            rowText.onClick { clickListener.onClick(item = data) }
+        }
+    }
+
+    // Click handler (more info: https://goo.gl/on7MDd)
+    interface ItemClickListener<T> {
+        fun onClick(item: T)
     }
 
 }

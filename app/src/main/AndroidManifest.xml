@@ -32,9 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".VerticalListActivity"
-            android:label="@string/title_activity_vertical_list"></activity>
+        <activity android:name=".VerticalListActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
