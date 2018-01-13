@@ -66,7 +66,14 @@ class HorizontalGridActivity : Activity() {
             RecyclerView.Adapter<RowViewHolder>() {
 
         // Data
-        val data = listOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight")
+        val data = listOf(
+                "One", "Two", "Three", "Four", "Five", "Six",
+                "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
+                "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+                "Eighteen", "Nineteen", "Twenty", "Twenty One", "Twenty Two",
+                "Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five", "Twenty Six",
+                "Twenty Sixteen", "Twenty Fourteen", "Twenty Fifteen", "Twenty Seventeen"
+        )
 
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {
