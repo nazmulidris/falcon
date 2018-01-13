@@ -28,6 +28,7 @@ import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.toast
 
 class VerticalListActivity : Activity() {
 
@@ -48,6 +49,7 @@ class VerticalListActivity : Activity() {
         // Set adapter
         recyclerView.adapter = DataAdapter(object : ItemClickListener<String> {
             override fun onClick(item: String) {
+                toast(getString(R.string.list_orientation))
                 snackbar(find<View>(android.R.id.content), item)
             }
         })
@@ -58,9 +60,6 @@ class VerticalListActivity : Activity() {
 
     private class DataAdapter(val clickListener: ItemClickListener<String>) :
             RecyclerView.Adapter<RowViewHolder>() {
-
-        // Data
-        val data = listOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight")
 
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {

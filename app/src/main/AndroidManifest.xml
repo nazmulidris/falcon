@@ -36,6 +36,7 @@
         <activity android:name=".HorizontalListActivity" />
         <activity android:name=".VerticalGridActivity" />
         <activity android:name=".HorizontalGridActivity" />
+        <activity android:name=".AutoOrientationChangeActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -35,7 +35,7 @@ class VerticalGridActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertical_grid)
-        find<RecyclerView>(R.id.rv_grid_container).let {
+        find<RecyclerView>(R.id.rv_vertical_grid_container).let {
             setup(it)
         }
     }
@@ -64,16 +64,6 @@ class VerticalGridActivity : Activity() {
 
     private class DataAdapter(val clickListener: ItemClickListener<String>) :
             RecyclerView.Adapter<RowViewHolder>() {
-
-        // Data
-        val data = listOf(
-                "One", "Two", "Three", "Four", "Five", "Six",
-                "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
-                "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
-                "Eighteen", "Nineteen", "Twenty", "Twenty One", "Twenty Two",
-                "Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five", "Twenty Six",
-                "Twenty Sixteen", "Twenty Fourteen", "Twenty Fifteen", "Twenty Seventeen"
-        )
 
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {

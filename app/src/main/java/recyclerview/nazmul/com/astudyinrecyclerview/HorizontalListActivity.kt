@@ -59,9 +59,6 @@ class HorizontalListActivity : Activity() {
     private class DataAdapter(val clickListener: ItemClickListener<String>) :
             RecyclerView.Adapter<RowViewHolder>() {
 
-        // Data
-        val data = listOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight")
-
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {
             return data.size

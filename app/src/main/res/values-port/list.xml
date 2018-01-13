@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2018 Nazmul Idris. All rights reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +15,6 @@
   ~ limitations under the License.
   -->
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rv_vertical_grid_container"
-    android:padding="8dp"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent" />
+<resources>
+    <item name="list_orientation" type="string">list</item>
+</resources>

@@ -112,6 +112,9 @@ class LauncherActivity : AppCompatActivity() {
                     ExperimentName.GridHorizontal.name -> {
                         ctx.startActivity(ctx.intentFor<HorizontalGridActivity>().singleTop())
                     }
+                    ExperimentName.AutoOrientationChangeList.name -> {
+                        ctx.startActivity(ctx.intentFor<AutoOrientationChangeActivity>().singleTop())
+                    }
                     else -> {
                         snackbar(ctx.find<View>(android.R.id.content),
                                 "${item.name} was clicked")
@@ -136,6 +139,7 @@ class LauncherActivity : AppCompatActivity() {
         HorizontalList("Horizontal List"),
         Grid("Uniform Grid - Vertical"),
         GridHorizontal("Uniform Grid - Horizontal"),
+        AutoOrientationChangeList("Dynamically change between list and grid"),
         IrregularGrid("Irregular Grid")
     }
 
