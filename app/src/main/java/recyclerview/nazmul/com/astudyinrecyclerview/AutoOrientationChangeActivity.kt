@@ -16,8 +16,9 @@
 
 package recyclerview.nazmul.com.astudyinrecyclerview
 
-import android.app.Activity
+import android.arch.lifecycle.*
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -25,15 +26,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.find
+import org.jetbrains.anko.info
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class AutoOrientationChangeActivity : Activity() {
+class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
 
     val SPAN_COUNT = 3
     var mUseList = false
+    lateinit var mState: ScrollState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,20 +56,29 @@ class AutoOrientationChangeActivity : Activity() {
                 setup(it)
             }
         }
+        setupViewModel()
+    }
+
+    private fun setupViewModel() {
+        mState = ViewModelProviders.of(this).get(ScrollState::class.java)
+        info { "loading/creating ViewModel: $mState" }
     }
 
     private fun setup(recyclerView: RecyclerView) {
+        var layoutManager: RecyclerView.LayoutManager
+
         // Set layout manager
         if (mUseList) {
-            recyclerView.layoutManager = LinearLayoutManager(
+            layoutManager = LinearLayoutManager(
                     this,
                     LinearLayoutManager.VERTICAL,
                     false)
+            recyclerView.layoutManager = layoutManager
             // Set decoration
             recyclerView.addItemDecoration(
                     DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         } else {
-            recyclerView.layoutManager = GridLayoutManager(
+            layoutManager = GridLayoutManager(
                     this,
                     SPAN_COUNT,
                     GridLayoutManager.VERTICAL,
@@ -77,6 +90,7 @@ class AutoOrientationChangeActivity : Activity() {
                             }
                         }
                     }
+            recyclerView.layoutManager = layoutManager
         }
         // Set adapter
         recyclerView.adapter = DataAdapter(
@@ -85,7 +99,40 @@ class AutoOrientationChangeActivity : Activity() {
                         snackbar(find<View>(android.R.id.content), item)
                     }
                 })
+        // Scroll position - more info: https://goo.gl/i2PTb4
+        lifecycle.addObserver(object : LifecycleObserver {
+            @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+            fun savePosition() {
+                var index = 0
+                when (layoutManager) {
+                    is LinearLayoutManager -> {
+                        index = layoutManager.findFirstVisibleItemPosition()
+                    }
+                    is GridLayoutManager -> {
+                        index = layoutManager.findFirstVisibleItemPosition()
+                    }
+                }
+                mState.position = index
+                info { "saving the position to State ${mState}" }
+            }
+        })
+        lifecycle.addObserver(object : LifecycleObserver {
+            @OnLifecycleEvent(Lifecycle.Event.ON_START)
+            fun restorePosition() {
+                info { "restoring the position to State ${mState}" }
+                when (layoutManager) {
+                    is LinearLayoutManager -> {
+                        layoutManager.scrollToPosition(mState.position)
+                    }
+                    is GridLayoutManager -> {
+                        layoutManager.scrollToPosition(mState.position)
+                    }
+                }
+            }
+        })
     }
+
+    data class ScrollState(var position: Int = 0, var offset: Int = 0) : ViewModel()
 
     private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
             RecyclerView.Adapter<RecyclerView.ViewHolder>() {

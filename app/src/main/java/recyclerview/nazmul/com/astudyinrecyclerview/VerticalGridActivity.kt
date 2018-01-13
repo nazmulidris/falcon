@@ -16,8 +16,8 @@
 
 package recyclerview.nazmul.com.astudyinrecyclerview
 
-import android.app.Activity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -28,7 +28,7 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class VerticalGridActivity : Activity() {
+class VerticalGridActivity : AppCompatActivity() {
 
     val SPAN_COUNT = 3
 
