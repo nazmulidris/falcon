@@ -37,6 +37,7 @@
         <activity android:name=".VerticalGridActivity" />
         <activity android:name=".HorizontalGridActivity" />
         <activity android:name=".AutoOrientationChangeActivity" />
+        <activity android:name=".StaggeredGridActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

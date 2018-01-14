@@ -115,6 +115,9 @@ class LauncherActivity : AppCompatActivity() {
                     ExperimentName.AutoOrientationChangeList.name -> {
                         ctx.startActivity(ctx.intentFor<AutoOrientationChangeActivity>().singleTop())
                     }
+                    ExperimentName.StaggeredGrid.name -> {
+                        ctx.startActivity(ctx.intentFor<StaggeredGridActivity>().singleTop())
+                    }
                     else -> {
                         snackbar(ctx.find<View>(android.R.id.content),
                                 "${item.name} was clicked")
@@ -140,7 +143,7 @@ class LauncherActivity : AppCompatActivity() {
         Grid("Uniform Grid - Vertical"),
         GridHorizontal("Uniform Grid - Horizontal"),
         AutoOrientationChangeList("Dynamically change between list and grid"),
-        IrregularGrid("Irregular Grid")
+        StaggeredGrid("Staggered Grid w/ Cards")
     }
 
 }

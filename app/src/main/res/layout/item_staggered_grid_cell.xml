@@ -14,12 +14,19 @@
   ~ limitations under the License.
   -->
 
+<!--
+  More info on ripples on clickable TextViews
+  https://goo.gl/JrnHkE
+  https://goo.gl/Y5Ccj6
+-->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/text_horizontal_list_cell"
-    android:padding="16dp"
-    android:layout_width="wrap_content"
+    android:id="@+id/text_staggered_grid_cell"
+    android:layout_margin="8dp"
+    android:padding="8dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="16sp"
+    android:gravity="center"
+    android:textSize="18sp"
     android:background="?attr/selectableItemBackground"
     tools:fontFamily="@font/noto_sans" />

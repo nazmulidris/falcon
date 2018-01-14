@@ -38,6 +38,7 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
     val SPAN_COUNT = 3
     var mUseList = false
     lateinit var mState: ScrollState
+    val mData = dynamicData.toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,7 +140,7 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
 
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {
-            return dynamicData.size
+            return mData.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -162,8 +163,8 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (holder) {
-                is GridCellViewHolder -> holder.bindToDataItem(dynamicData[position], clickListener)
-                is RowViewHolder -> holder.bindToDataItem(dynamicData[position], clickListener)
+                is GridCellViewHolder -> holder.bindToDataItem(mData[position], clickListener)
+                is RowViewHolder -> holder.bindToDataItem(mData[position], clickListener)
             }
         }
 

@@ -32,6 +32,7 @@ import org.jetbrains.anko.toast
 
 class VerticalListActivity : AppCompatActivity() {
 
+    val mData = staticData.toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,12 +60,12 @@ class VerticalListActivity : AppCompatActivity() {
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
-    private class DataAdapter(val clickListener: ItemClickListener<String>) :
+    private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
             RecyclerView.Adapter<RowViewHolder>() {
 
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {
-            return data.size
+            return mData.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
@@ -77,7 +78,7 @@ class VerticalListActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
-            holder.bindToDataItem(data[position], clickListener)
+            holder.bindToDataItem(mData[position], clickListener)
         }
 
     }

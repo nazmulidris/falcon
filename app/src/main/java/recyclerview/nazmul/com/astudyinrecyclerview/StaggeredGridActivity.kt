@@ -18,8 +18,7 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -29,33 +28,39 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class HorizontalListActivity : AppCompatActivity() {
+class StaggeredGridActivity : AppCompatActivity() {
 
-    val mData = staticData.toList()
+    val SPAN_COUNT = 3
+    val mData = dynamicData.toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_horizontal_list)
-        find<RecyclerView>(R.id.rv_horizontal_list_container).let {
+        setContentView(R.layout.activity_staggered_grid)
+        find<RecyclerView>(R.id.rv_staggered_grid_container).let {
             setup(it)
         }
     }
 
     private fun setup(recyclerView: RecyclerView) {
         // Set layout manager
-        recyclerView.layoutManager = LinearLayoutManager(
+        recyclerView.layoutManager = GridLayoutManager(
                 this,
-                LinearLayoutManager.HORIZONTAL,
-                true)
+                SPAN_COUNT,
+                GridLayoutManager.VERTICAL,
+                false)
+                .apply {
+                    spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            if (position != 0 && position % 5 == 0) return SPAN_COUNT else return 1
+                        }
+                    }
+                }
         // Set adapter
         recyclerView.adapter = DataAdapter(object : ItemClickListener<String> {
             override fun onClick(item: String) {
                 snackbar(find<View>(android.R.id.content), item)
             }
         })
-        // Set decoration
-        recyclerView.addItemDecoration(
-                DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
     }
 
     private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
@@ -68,7 +73,7 @@ class HorizontalListActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
             parent.context.layoutInflater.inflate(
-                    R.layout.item_horizontal_list_cell,
+                    R.layout.item_staggered_grid_cell,
                     parent,
                     false).let {
                 return RowViewHolder(it)
@@ -87,7 +92,7 @@ class HorizontalListActivity : AppCompatActivity() {
         val cellText: TextView
 
         init {
-            cellText = itemView.find(R.id.text_horizontal_list_cell)
+            cellText = itemView.find(R.id.text_staggered_grid_cell)
         }
 
         fun bindToDataItem(data: String, clickListener: ItemClickListener<String>) {

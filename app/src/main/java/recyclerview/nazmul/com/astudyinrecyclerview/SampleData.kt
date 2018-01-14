@@ -19,7 +19,7 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 import java.util.*
 
 // Data
-val data = listOf(
+val staticData = listOf(
         "One", "Two", "Three", "Four", "Five", "Six",
         "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
         "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
