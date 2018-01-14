@@ -19,5 +19,7 @@
     <color name="colorPrimary">#31aff2</color>
     <color name="colorPrimaryDark">#16a5f1</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBackground">#253035</color>
+    <color name="colorText">#b2ffffff</color>
     <color name="colorCellBackground">#086086</color>
 </resources>
