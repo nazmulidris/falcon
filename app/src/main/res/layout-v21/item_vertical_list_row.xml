@@ -15,7 +15,9 @@
   -->
 
 <!--
-  Does not have ripple or raise (since this was added in v21)
+  More info
+  https://goo.gl/Y5Ccj6 -> support lib attributes & ripple background
+  https://goo.gl/WBd872 -> ripple
 -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,4 +26,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="16sp"
+    android:stateListAnimator="@animator/raise"
+    android:background="@drawable/ripple"
     tools:fontFamily="@font/noto_sans" />
+    <!--
+        Default ripple
+        android:background="?selectableItemBackground"
+    -->
