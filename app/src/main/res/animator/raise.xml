@@ -17,6 +17,7 @@
 <!--
   More info
   https://goo.gl/5ZFxoH -> Android Object Animators
+  https://goo.gl/qpBJti -> Styling Android StateListAnimator
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
