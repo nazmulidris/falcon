@@ -19,36 +19,38 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 import java.util.*
 
 // Data
-val staticData = listOf(
-        "One", "Two", "Three", "Four", "Five", "Six",
-        "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
-        "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
-        "Eighteen", "Nineteen", "Twenty", "Twenty One", "Twenty Two",
-        "Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five", "Twenty Six",
-        "Twenty Sixteen", "Twenty Fourteen", "Twenty Fifteen", "Twenty Seventeen"
-)
-
-val dynamicData = mutableListOf<String>().apply {
-    for (i in 1..30) {
-        add(genSentence(2 + Random().nextInt(10)))
-    }
+val staticData by lazy {
+    listOf(
+            "One", "Two", "Three", "Four", "Five", "Six",
+            "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
+            "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+            "Eighteen", "Nineteen", "Twenty", "Twenty One", "Twenty Two",
+            "Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five", "Twenty Six",
+            "Twenty Sixteen", "Twenty Fourteen", "Twenty Fifteen", "Twenty Seventeen"
+    )
 }
 
-private fun genSentence(maxWords: Int): String {
-    with(StringBuilder()) {
-        for (i in 1..maxWords) {
-            append(genWord(Random().nextInt(20)))
-            append(" ")
+val dynamicData by lazy {
+    fun genWord(maxChars: Int): String {
+        with(StringBuilder()) {
+            for (i in 1..maxChars) {
+                append("X")
+            }
+            return toString()
         }
-        return toString()
     }
-}
 
-private fun genWord(maxChars: Int): String {
-    with(StringBuilder()) {
-        for (i in 1..maxChars) {
-            append("X")
+    fun genSentence(maxWords: Int): String {
+        with(StringBuilder()) {
+            for (i in 1..maxWords) {
+                append(genWord(Random().nextInt(20)))
+                append(" ")
+            }
+            return toString()
         }
-        return toString()
+    }
+
+    mutableListOf<String>().apply {
+        for (i in 1..30) add(genSentence(2 + Random().nextInt(10)))
     }
 }
