@@ -16,6 +16,8 @@
 
 package recyclerview.nazmul.com.astudyinrecyclerview
 
+import java.util.*
+
 // Data
 val data = listOf(
         "One", "Two", "Three", "Four", "Five", "Six",
@@ -25,3 +27,28 @@ val data = listOf(
         "Twenty Two", "Twenty Three", "Twenty Four", "Twenty Five", "Twenty Six",
         "Twenty Sixteen", "Twenty Fourteen", "Twenty Fifteen", "Twenty Seventeen"
 )
+
+val dynamicData = mutableListOf<String>().apply {
+    for (i in 1..30) {
+        add(genSentence(2 + Random().nextInt(10)))
+    }
+}
+
+private fun genSentence(maxWords: Int): String {
+    with(StringBuilder()) {
+        for (i in 1..maxWords) {
+            append(genWord(Random().nextInt(20)))
+            append(" ")
+        }
+        return toString()
+    }
+}
+
+private fun genWord(maxChars: Int): String {
+    with(StringBuilder()) {
+        for (i in 1..maxChars) {
+            append("X")
+        }
+        return toString()
+    }
+}

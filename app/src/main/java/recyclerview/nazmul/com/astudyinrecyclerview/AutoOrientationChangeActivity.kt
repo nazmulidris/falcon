@@ -139,7 +139,7 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
 
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {
-            return data.size
+            return dynamicData.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -162,8 +162,8 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (holder) {
-                is GridCellViewHolder -> holder.bindToDataItem(data[position], clickListener)
-                is RowViewHolder -> holder.bindToDataItem(data[position], clickListener)
+                is GridCellViewHolder -> holder.bindToDataItem(dynamicData[position], clickListener)
+                is RowViewHolder -> holder.bindToDataItem(dynamicData[position], clickListener)
             }
         }
 
