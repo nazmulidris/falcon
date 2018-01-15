@@ -23,11 +23,13 @@
     <item android:state_pressed="true">
         <set android:ordering="together">
             <objectAnimator
+                android:interpolator="@android:anim/accelerate_interpolator"
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="scaleX"
                 android:valueTo="1.05"
                 android:valueType="floatType" />
             <objectAnimator
+                android:interpolator="@android:anim/accelerate_interpolator"
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="scaleY"
                 android:valueTo="1.05"
@@ -38,11 +40,13 @@
     <item>
         <set android:ordering="together">
             <objectAnimator
+                android:interpolator="@android:anim/decelerate_interpolator"
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="scaleX"
                 android:valueTo="1.0"
                 android:valueType="floatType" />
             <objectAnimator
+                android:interpolator="@android:anim/decelerate_interpolator"
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="scaleY"
                 android:valueTo="1.0"
