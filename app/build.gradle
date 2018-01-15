@@ -42,6 +42,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
 
+    // Lorem Ipsum Generator
+    implementation 'com.thedeanda:lorem:2.1'
+
     // Lifecycles
     implementation "android.arch.lifecycle:runtime:1.0.3"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
@@ -58,6 +61,9 @@ dependencies {
 
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+
+    // CardView
+    implementation 'com.android.support:cardview-v7:26.1.0'
 
     // Anko
     compile "org.jetbrains.anko:anko:$anko_version"

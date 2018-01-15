@@ -16,6 +16,7 @@
 
 package recyclerview.nazmul.com.astudyinrecyclerview
 
+import com.thedeanda.lorem.LoremIpsum
 import java.util.*
 
 // Data
@@ -52,5 +53,14 @@ val dynamicData by lazy {
 
     mutableListOf<String>().apply {
         for (i in 1..30) add(genSentence(2 + Random().nextInt(10)))
+    }
+}
+
+// More info - https://github.com/mdeanda/lorem
+val loremIpsumData by lazy {
+    mutableListOf<String>().apply {
+        with(LoremIpsum()) {
+            for (i in 1..30) add(getWords(5, 15))
+        }
     }
 }

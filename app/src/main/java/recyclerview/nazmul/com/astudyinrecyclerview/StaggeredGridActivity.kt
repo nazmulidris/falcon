@@ -18,8 +18,8 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -30,8 +30,7 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class StaggeredGridActivity : AppCompatActivity() {
 
-    val SPAN_COUNT = 3
-    val mData = dynamicData.toList()
+    val mData = loremIpsumData.toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,20 +41,15 @@ class StaggeredGridActivity : AppCompatActivity() {
     }
 
     private fun setup(recyclerView: RecyclerView) {
+        val SPAN_COUNT = resources.getInteger(R.integer.staggered_list_span_count)
         // Set layout manager
-        recyclerView.layoutManager = GridLayoutManager(
-                this,
-                SPAN_COUNT,
-                GridLayoutManager.VERTICAL,
-                false)
+        StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
                 .apply {
-                    spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            if (position != 0 && position % 5 == 0) return SPAN_COUNT else return 1
-                        }
-                    }
+                    gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
                 }
-        // Set adapter
+                .apply {
+                    recyclerView.layoutManager = this
+                }
         recyclerView.adapter = DataAdapter(object : ItemClickListener<String> {
             override fun onClick(item: String) {
                 snackbar(find<View>(android.R.id.content), item)

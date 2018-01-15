@@ -38,7 +38,7 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
     val SPAN_COUNT = 3
     var mUseList = false
     lateinit var mState: ScrollState
-    val mData = dynamicData.toList()
+    val mData = loremIpsumData.toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

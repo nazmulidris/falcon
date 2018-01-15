@@ -17,4 +17,5 @@
 
 <resources>
     <item name="list_orientation" type="string">list</item>
+    <item name="staggered_list_span_count" type="integer">2</item>
 </resources>
