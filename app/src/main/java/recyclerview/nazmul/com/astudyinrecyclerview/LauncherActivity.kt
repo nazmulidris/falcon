@@ -118,6 +118,9 @@ class LauncherActivity : AppCompatActivity() {
                     ExperimentName.StaggeredGrid.name -> {
                         ctx.startActivity(ctx.intentFor<StaggeredGridActivity>().singleTop())
                     }
+                    ExperimentName.SimpleTouchableVerticalListActivity.name -> {
+                        ctx.startActivity(ctx.intentFor<TouchableVerticalListActivity>().singleTop())
+                    }
                     else -> {
                         snackbar(ctx.find<View>(android.R.id.content),
                                 "${item.name} was clicked")
@@ -143,7 +146,8 @@ class LauncherActivity : AppCompatActivity() {
         Grid("Uniform Grid - Vertical"),
         GridHorizontal("Uniform Grid - Horizontal"),
         AutoOrientationChangeList("Dynamically change between list and grid"),
-        StaggeredGrid("Staggered Grid w/ Cards")
+        StaggeredGrid("Staggered Grid w/ Cards"),
+        SimpleTouchableVerticalListActivity("Simple touchable vertical list")
     }
 
 }
