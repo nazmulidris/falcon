@@ -23,7 +23,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="3dp"
-    app:cardBackgroundColor="@color/cardview_dark_background"
+    app:cardBackgroundColor="@color/cardview_light_background"
     android:layout_margin="8dp"
     app:cardElevation="8dp"
     android:layout_height="wrap_content"
@@ -32,8 +32,9 @@
     android:focusable="true">
 
     <TextView
+        android:textColor="@color/colorBackground"
         android:stateListAnimator="@animator/raise"
-        android:background="?selectableItemBackgroundBorderless"
+        android:background="@drawable/ripple"
         android:id="@+id/text_staggered_grid_cell"
         android:padding="8dp"
         android:layout_width="match_parent"
