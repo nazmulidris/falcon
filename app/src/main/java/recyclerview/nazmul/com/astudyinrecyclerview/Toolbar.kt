@@ -49,7 +49,8 @@ class FontDownloader(val mContext: Context, val mToolbar: Toolbar) : AnkoLogger 
         info("${::downloadFont.name}(): Running")
 
         //val query = "name=Open Sans&weight=800&italic=0"
-        val query = "name=Noto Sans&weight=700&italic=0"
+        //val query = "name=Noto Sans&weight=700&italic=0"
+        val query = "name=Oxygen&weight=700&italic=0"
 
         // Start async fetch on the handler thread
         FontsContractCompat.requestFont(

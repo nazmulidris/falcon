@@ -28,7 +28,7 @@
     android:textSize="16sp"
     android:stateListAnimator="@animator/raise"
     android:background="@drawable/ripple"
-    tools:fontFamily="@font/noto_sans" />
+    tools:fontFamily="@font/oxygen" />
     <!--
         Default ripple
         android:background="?selectableItemBackground"

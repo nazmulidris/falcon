@@ -15,10 +15,9 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <array name="preloaded_fonts" translatable="false">
-        <item>@font/arimo</item>
-        <item>@font/noto_sans</item>
-        <item>@font/oxygen</item>
-    </array>
-</resources>
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:fontProviderAuthority="com.google.android.gms.fonts"
+        app:fontProviderPackage="com.google.android.gms"
+        app:fontProviderQuery="Oxygen"
+        app:fontProviderCerts="@array/com_google_android_gms_fonts_certs">
+</font-family>
