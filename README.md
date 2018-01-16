@@ -25,5 +25,4 @@ Video of part of the app in action
 
 <img src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
 data-canonical-src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
-width="200" 
-height="400" />
+width="500"/>
