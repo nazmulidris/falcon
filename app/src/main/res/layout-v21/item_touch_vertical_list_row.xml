@@ -29,15 +29,19 @@
         android:id="@+id/text_touch_vertical_list_row"
         android:padding="16dp"
         android:textSize="16sp"
-        android:stateListAnimator="@animator/raise"
-        android:background="@drawable/ripple"
         tools:fontFamily="@font/oxygen"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="28dp" />
-
+        android:layout_marginEnd="28dp"
+        android:stateListAnimator="@animator/raise"
+        android:background="@drawable/ripple" />
+    <!--
+            android:background="@drawable/ripple"
+            android:stateListAnimator="@animator/raise"
+            android:background="?selectableItemBackground"
+    -->
     <ImageView
         android:id="@+id/image_touch_vertical_list_row_handle"
         android:layout_width="wrap_content"
@@ -52,9 +56,5 @@
         app:layout_constraintStart_toEndOf="@+id/text_touch_vertical_list_row"
         android:layout_marginStart="8dp"
         android:tint="@color/colorAccent" />
-    <!--
-        Default ripple
-        android:background="?selectableItemBackground"
-    -->
 
 </android.support.constraint.ConstraintLayout>
