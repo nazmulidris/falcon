@@ -21,4 +21,9 @@ These resources are great for best practices for naming things in Android
 - [Cheat sheet for naming things in Android](https://jeroenmols.com/blog/2016/03/07/resourcenaming/)
 
 Video of part of the app in action
-![Screenshots](https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true | width=500)
+![Screenshots](https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true)
+
+<img src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
+data-canonical-src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
+width="200" 
+height="400" />
