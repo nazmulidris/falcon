@@ -47,9 +47,9 @@ class TouchableVerticalListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vertical_list)
+        setContentView(R.layout.activity_touch_vertical_list)
         setupViewModel()
-        find<RecyclerView>(R.id.rv_vertical_list_container).let {
+        find<RecyclerView>(R.id.rv_touch_vertical_list_container).let {
             setupRecyclerView(it)
         }
     }
@@ -121,7 +121,7 @@ class TouchableVerticalListActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
             parent.context.layoutInflater.inflate(
-                    R.layout.item_vertical_list_row,
+                    R.layout.item_touch_vertical_list_row,
                     parent,
                     false).let {
                 return RowViewHolder(it)
@@ -140,7 +140,7 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         val rowText: TextView
 
         init {
-            rowText = itemView.find(R.id.text_vertical_list_row)
+            rowText = itemView.find(R.id.text_touch_vertical_list_row)
         }
 
         fun bindToDataItem(data: String, clickListener: ItemClickListener<String>) {
