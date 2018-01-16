@@ -101,12 +101,14 @@ class TouchableVerticalListActivity : AppCompatActivity() {
 
         val mTouchHelper: ItemTouchHelper = ItemTouchHelper(TouchHelperCallback(this))
 
+        // Handle touch - drag and drop
         override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
             Collections.swap(mState.data, fromPosition, toPosition)
             notifyItemMoved(fromPosition, toPosition)
             return true
         }
 
+        // Handle touch - swipe to dismiss
         override fun onItemDismiss(position: Int) {
             mState.data.removeAt(position)
             notifyItemRemoved(position)
