@@ -19,3 +19,6 @@ These resources are great for best practices for naming things in Android
 (which were used to name the multitude of layout assets in this project).
 - [Guidelines for naming things in Android](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md)
 - [Cheat sheet for naming things in Android](https://jeroenmols.com/blog/2016/03/07/resourcenaming/)
+
+Video of part of the app in action
+Example: ![Screenshots]()
