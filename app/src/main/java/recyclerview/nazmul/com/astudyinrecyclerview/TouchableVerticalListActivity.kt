@@ -56,26 +56,26 @@ class TouchableVerticalListActivity : AppCompatActivity() {
 
     fun setupRecyclerView(recyclerView: RecyclerView) {
         // Create layout manager
-        var layoutManager: LinearLayoutManager = LinearLayoutManager(
-                this,
-                LinearLayoutManager.VERTICAL,
-                false)
-                .apply {
-                    // Set layout manager
-                    recyclerView.layoutManager = this
-                }
+        var layoutManager: LinearLayoutManager =
+                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                        .apply {
+                            // Set layout manager
+                            recyclerView.layoutManager = this
+                        }
 
         // Create adapter
-        DataAdapter(object : ItemClickListener<String> {
-            override fun onClick(item: String) {
-                snackbar(find<View>(android.R.id.content), item)
-            }
-        }).apply {
-            // Set adapter
-            recyclerView.adapter = this
-            // Setup TouchHelper
-            this.mTouchHelper.attachToRecyclerView(recyclerView)
-        }
+        DataAdapter(
+                object : ItemClickListener<String> {
+                    override fun onClick(item: String) {
+                        snackbar(find<View>(android.R.id.content), item)
+                    }
+                })
+                .apply {
+                    // Set adapter
+                    recyclerView.adapter = this
+                    // Setup TouchHelper
+                    this.mTouchHelper.attachToRecyclerView(recyclerView)
+                }
 
         // Set decoration
         recyclerView.addItemDecoration(
