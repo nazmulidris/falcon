@@ -23,8 +23,10 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.find
@@ -129,7 +131,7 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
-            holder.bindToDataItem(mState.data[position], clickListener)
+            holder.bindToDataItem(mState.data[position], clickListener, mTouchHelper, holder)
         }
 
     }
@@ -138,14 +140,28 @@ class TouchableVerticalListActivity : AppCompatActivity() {
     private class RowViewHolder(itemView: View) :
             RecyclerView.ViewHolder(itemView) {
         val rowText: TextView
+        val rowHandle: ImageView
 
         init {
             rowText = itemView.find(R.id.text_touch_vertical_list_row)
+            rowHandle = itemView.find(R.id.image_touch_vertical_list_row_handle)
         }
 
-        fun bindToDataItem(data: String, clickListener: ItemClickListener<String>) {
+        fun bindToDataItem(data: String,
+                           clickListener: ItemClickListener<String>,
+                           touchHelper: ItemTouchHelper,
+                           holder: RowViewHolder) {
+            // Text
             rowText.text = data
             rowText.onClick { clickListener.onClick(item = data) }
+
+            // Image handle
+            rowHandle.setOnTouchListener { view, motionEvent ->
+                if (motionEvent.actionMasked == MotionEvent.ACTION_DOWN) {
+                    touchHelper.startDrag(holder)
+                }
+                false
+            }
         }
     }
 

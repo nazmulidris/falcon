@@ -14,22 +14,47 @@
   ~ limitations under the License.
   -->
 
-<!--
-  More info
-  https://goo.gl/Y5Ccj6 -> support lib attributes & ripple background
-  https://goo.gl/WBd872 -> ripple
--->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/text_touch_vertical_list_row"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"
-    android:stateListAnimator="@animator/raise"
-    android:background="@drawable/ripple"
-    tools:fontFamily="@font/oxygen" />
+    android:layout_height="wrap_content">
+
+    <!--
+      More info
+      https://goo.gl/Y5Ccj6 -> support lib attributes & ripple background
+      https://goo.gl/WBd872 -> ripple
+    -->
+    <TextView
+        android:id="@+id/text_touch_vertical_list_row"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:stateListAnimator="@animator/raise"
+        android:background="@drawable/ripple"
+        tools:fontFamily="@font/oxygen"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="28dp" />
+
+    <ImageView
+        android:id="@+id/image_touch_vertical_list_row_handle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_reorder_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toEndOf="@+id/text_touch_vertical_list_row"
+        android:layout_marginStart="8dp"
+        android:tint="@color/colorAccent" />
     <!--
         Default ripple
         android:background="?selectableItemBackground"
     -->
+
+</android.support.constraint.ConstraintLayout>

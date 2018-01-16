@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2018 Nazmul Idris. All rights reserved.
   ~
@@ -15,11 +14,12 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <color name="colorPrimary">#31aff2</color>
-    <color name="colorPrimaryDark">#16a5f1</color>
-    <color name="colorAccent">#ff4081</color>
-    <color name="colorBackground">#253035</color>
-    <color name="colorText">#b2ffffff</color>
-    <color name="colorCellBackground">#086086</color>
-</resources>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M3,15h18v-2L3,13v2zM3,19h18v-2L3,17v2zM3,11h18L21,9L3,9v2zM3,5v2h18L21,5L3,5z"/>
+</vector>
