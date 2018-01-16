@@ -23,11 +23,17 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.support.v7.widget.helper.ItemTouchHelper.*
 
 /**
- * An implementation of [ItemTouchHelper.Callback] that enables basic drag & drop and
- * swipe-to-dismiss. Drag events are automatically started by an item long-press.
+ * Callback for [ItemTouchHelper] which is attached to your [RecyclerView].
  *
- * Expects the [RecyclerView.Adapter] to listen for [AdapterTouchListener] callbacks
- * and the [RecyclerView.ViewHolder] to implement [ViewHolderTouchListener].
+ * When the user performs drag & drop, swipe-to-dismiss touch operations
+ * on your [RecyclerView], the [ItemTouchHelper] uses this callback to handle
+ * how those moves & deletions should be handled by your [RecyclerView.Adapter].
+ *
+ * Notes:
+ * - Your [RecyclerView.Adapter] needs to create the [ItemTouchHelper] and
+ * attach this callback to it.
+ * - You also need to attach a [RecyclerView] to
+ * the [ItemTouchHelper.attachToRecyclerView] function.
  */
 class TouchHelperCallback(val mAdapter: AdapterTouchListener) : ItemTouchHelper.Callback() {
     override fun isLongPressDragEnabled() = true
@@ -64,13 +70,15 @@ class TouchHelperCallback(val mAdapter: AdapterTouchListener) : ItemTouchHelper.
 }
 
 /**
- * Interface to listen for a move or dismissal event from a [ItemTouchHelper.Callback].
+ * Interface for your [RecyclerView.Adapter] handle move or dismissal event
+ * from the [TouchHelperCallback].
  */
 interface AdapterTouchListener {
     /**
      * Called when an item has been dragged far enough to trigger a move.
      * This is called every time an item is shifted, and **not** at the end
      * of a "drop".
+     *
      * Implementations should call [RecyclerView.Adapter.notifyItemMoved] after
      * adjusting the underlying data to reflect this move.
      *
@@ -84,6 +92,7 @@ interface AdapterTouchListener {
 
     /**
      * Called when an item has been dismissed by a swipe.
+     *
      * Implementations should call [RecyclerView.Adapter.notifyItemRemoved] after
      * adjusting the underlying data to reflect this removal.
      *
@@ -96,7 +105,7 @@ interface AdapterTouchListener {
 
 /**
  * Interface to notify an item ViewHolder of relevant callbacks from
- * [ItemTouchHelper.Callback].
+ * [TouchHelperCallback].
  */
 interface ViewHolderTouchListener {
     /**

@@ -85,7 +85,6 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
             fun saveListPosition() {
-                var index = 0
                 mState.position = layoutManager.findFirstVisibleItemPosition()
             }
 
@@ -100,11 +99,7 @@ class TouchableVerticalListActivity : AppCompatActivity() {
             RecyclerView.Adapter<RowViewHolder>(),
             AdapterTouchListener {
 
-        val mTouchHelper: ItemTouchHelper
-
-        init {
-            mTouchHelper = ItemTouchHelper(TouchHelperCallback(this))
-        }
+        val mTouchHelper: ItemTouchHelper = ItemTouchHelper(TouchHelperCallback(this))
 
         override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
             Collections.swap(mState.data, fromPosition, toPosition)
