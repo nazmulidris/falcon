@@ -26,6 +26,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import org.jetbrains.anko.design.snackbar
@@ -141,10 +142,12 @@ class TouchableVerticalListActivity : AppCompatActivity() {
             RecyclerView.ViewHolder(itemView) {
         val rowText: TextView
         val rowHandle: ImageView
+        val rowLayout: FrameLayout
 
         init {
             rowText = itemView.find(R.id.text_touch_vertical_list_row)
             rowHandle = itemView.find(R.id.image_touch_vertical_list_row_handle)
+            rowLayout = itemView.find(R.id.layout_touch_vertical_list_row_container)
         }
 
         fun bindToDataItem(data: String,
@@ -153,7 +156,7 @@ class TouchableVerticalListActivity : AppCompatActivity() {
                            holder: RowViewHolder) {
             // Text
             rowText.text = data
-            rowText.onClick { clickListener.onClick(item = data) }
+            rowLayout.onClick { clickListener.onClick(item = data) }
 
             // Image handle
             rowHandle.setOnTouchListener { view, motionEvent ->
