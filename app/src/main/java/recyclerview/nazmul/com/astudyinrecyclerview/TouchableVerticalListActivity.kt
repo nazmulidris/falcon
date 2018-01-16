@@ -16,6 +16,7 @@
 
 package recyclerview.nazmul.com.astudyinrecyclerview
 
+import android.arch.lifecycle.*
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -33,35 +34,66 @@ import java.util.*
 
 class TouchableVerticalListActivity : AppCompatActivity() {
 
-    val mData = loremIpsumData.toMutableList()
+    private lateinit var mState: State
+
+    private fun setupViewModel() {
+        mState = ViewModelProviders.of(this).get(State::class.java)
+    }
+
+    private data class State(
+            var position: Int = 0,
+            var data: MutableList<String> = loremIpsumData.toMutableList()) :
+            ViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vertical_list)
+        setupViewModel()
         find<RecyclerView>(R.id.rv_vertical_list_container).let {
-            setup(it)
+            setupRecyclerView(it)
         }
     }
 
-    fun setup(recyclerView: RecyclerView) {
-        // Set layout manager
-        recyclerView.layoutManager = LinearLayoutManager(
+    fun setupRecyclerView(recyclerView: RecyclerView) {
+        // Create layout manager
+        var layoutManager: LinearLayoutManager = LinearLayoutManager(
                 this,
                 LinearLayoutManager.VERTICAL,
                 false)
+                .apply {
+                    // Set layout manager
+                    recyclerView.layoutManager = this
+                }
+
         // Create adapter
-        val dataAdapter = DataAdapter(object : ItemClickListener<String> {
+        DataAdapter(object : ItemClickListener<String> {
             override fun onClick(item: String) {
                 snackbar(find<View>(android.R.id.content), item)
             }
-        })
-        // Set adapter
-        recyclerView.adapter = dataAdapter
+        }).apply {
+            // Set adapter
+            recyclerView.adapter = this
+            // Setup TouchHelper
+            this.mTouchHelper.attachToRecyclerView(recyclerView)
+        }
+
         // Set decoration
         recyclerView.addItemDecoration(
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        // Setup TouchHelper
-        dataAdapter.mTouchHelper.attachToRecyclerView(recyclerView)
+
+        // Scroll position
+        lifecycle.addObserver(object : LifecycleObserver {
+            @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+            fun saveListPosition() {
+                var index = 0
+                mState.position = layoutManager.findFirstVisibleItemPosition()
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_START)
+            fun restoreListPosition() {
+                layoutManager.scrollToPosition(mState.position)
+            }
+        })
     }
 
     private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
@@ -75,19 +107,19 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         }
 
         override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-            Collections.swap(mData, fromPosition, toPosition)
+            Collections.swap(mState.data, fromPosition, toPosition)
             notifyItemMoved(fromPosition, toPosition)
             return true
         }
 
         override fun onItemDismiss(position: Int) {
-            mData.removeAt(position)
+            mState.data.removeAt(position)
             notifyItemRemoved(position)
         }
 
         // RecyclerView.Adapter implementation
         override fun getItemCount(): Int {
-            return mData.size
+            return mState.data.size
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
@@ -100,7 +132,7 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: RowViewHolder, position: Int) {
-            holder.bindToDataItem(mData[position], clickListener)
+            holder.bindToDataItem(mState.data[position], clickListener)
         }
 
     }

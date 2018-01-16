@@ -37,7 +37,7 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
 
     val SPAN_COUNT = 3
     var mUseList = false
-    lateinit var mState: ScrollState
+    private lateinit var mState: ScrollState
     val mData = loremIpsumData.toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +64,8 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
         mState = ViewModelProviders.of(this).get(ScrollState::class.java)
         info { "loading/creating ViewModel: $mState" }
     }
+
+    private data class ScrollState(var position: Int = 0, var offset: Int = 0) : ViewModel()
 
     private fun setup(recyclerView: RecyclerView) {
         var layoutManager: RecyclerView.LayoutManager
@@ -116,8 +118,6 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
                 mState.position = index
                 info { "saving the position to State ${mState}" }
             }
-        })
-        lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_START)
             fun restorePosition() {
                 info { "restoring the position to State ${mState}" }
@@ -132,8 +132,6 @@ class AutoOrientationChangeActivity : AppCompatActivity(), AnkoLogger {
             }
         })
     }
-
-    data class ScrollState(var position: Int = 0, var offset: Int = 0) : ViewModel()
 
     private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
             RecyclerView.Adapter<RecyclerView.ViewHolder>() {
