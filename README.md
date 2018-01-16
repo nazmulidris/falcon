@@ -20,6 +20,9 @@ These resources are great for best practices for naming things in Android
 - [Guidelines for naming things in Android](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md)
 - [Cheat sheet for naming things in Android](https://jeroenmols.com/blog/2016/03/07/resourcenaming/)
 
+More info on animations in android (use property animators, not view or tweening animators).
+- [Property animation, not View animation](https://developer.android.com/guide/topics/graphics/prop-animation.html)
+
 Video of part of the app in action
 
 <img 

@@ -17,13 +17,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_touch_vertical_list_row_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:background="@drawable/ripple"
-    android:id="@+id/layout_touch_vertical_list_row_container"
-    android:stateListAnimator="@animator/raise">
+    >
     <!--
     More info
     https://goo.gl/Y5Ccj6 -> support lib attributes & ripple background

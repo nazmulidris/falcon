@@ -16,11 +16,16 @@
 
 package recyclerview.nazmul.com.astudyinrecyclerview
 
+import android.animation.AnimatorInflater
+import android.graphics.Canvas
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.support.v7.widget.helper.ItemTouchHelper.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
 
 /**
  * Callback for [ItemTouchHelper] which is attached to your [RecyclerView].
@@ -35,8 +40,9 @@ import android.support.v7.widget.helper.ItemTouchHelper.*
  * - You also need to attach a [RecyclerView] to
  * the [ItemTouchHelper.attachToRecyclerView] function.
  */
-class TouchHelperCallback(val mAdapter: AdapterTouchListener) : ItemTouchHelper.Callback() {
-    override fun isLongPressDragEnabled() = true
+class TouchHelperCallback(val mAdapter: AdapterTouchListener) :
+        ItemTouchHelper.Callback(), AnkoLogger {
+    override fun isLongPressDragEnabled() = false
 
     override fun isItemViewSwipeEnabled() = true
 
@@ -67,6 +73,76 @@ class TouchHelperCallback(val mAdapter: AdapterTouchListener) : ItemTouchHelper.
                           direction: Int) {
         mAdapter.onItemDismiss(viewHolder.adapterPosition)
     }
+
+    // The following function overrides are optional. They aren't required
+    // for the drag and drop, and swipe to dismiss to work. They are purely
+    // for adding more control over the UI effects of swipe, select,
+    // deselect, and dismiss.
+
+    override fun onChildDraw(c: Canvas,
+                             recyclerView: RecyclerView,
+                             viewHolder: RecyclerView.ViewHolder,
+                             dX: Float,
+                             dY: Float,
+                             actionState: Int,
+                             isCurrentlyActive: Boolean) {
+        when (actionState) {
+            ACTION_STATE_SWIPE -> {
+                // Fade out the view as it is swiped out of the parent's bounds
+                val alpha = 1.0f - Math.abs(dX) / viewHolder.itemView.width.toFloat()
+                viewHolder.itemView.alpha = alpha
+                viewHolder.itemView.translationX = dX
+            }
+            else -> super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        }
+    }
+
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?,
+                                   actionState: Int) {
+        info { "onSelectedChanged -> ${actionStateString(actionState)}" }
+        when (actionState) {
+            ACTION_STATE_DRAG -> viewHolder?.itemView?.apply {
+                with(AnimatorInflater.loadAnimator(context, R.animator.scale_up)) {
+                    setTarget(this@apply)
+                    start()
+                }
+            }
+            ACTION_STATE_SWIPE -> viewHolder?.itemView?.apply {
+                with(AnimatorInflater.loadAnimator(context, R.animator.pulse)) {
+                    setTarget(this@apply)
+                    start()
+                }
+            }
+            ACTION_STATE_IDLE -> viewHolder?.itemView?.apply {}
+        }
+        super.onSelectedChanged(viewHolder, actionState)
+    }
+
+    override fun clearView(recyclerView: RecyclerView,
+                           viewHolder: RecyclerView.ViewHolder?) {
+        super.clearView(recyclerView, viewHolder)
+
+        // for onChildDraw()
+        viewHolder?.itemView?.alpha = 1.0f
+
+        // for onSelectedChanged()
+        viewHolder?.itemView?.apply {
+            with(AnimatorInflater.loadAnimator(recyclerView.context, R.animator.scale_normal)) {
+                setTarget(this@apply)
+                start()
+            }
+        }
+    }
+
+    fun actionStateString(id: Int): String {
+        return when (id) {
+            ACTION_STATE_DRAG -> "DRAG"
+            ACTION_STATE_IDLE -> "IDLE"
+            ACTION_STATE_SWIPE -> "SWIPE"
+            else -> "UNKNOWN"
+        }
+    }
+
 }
 
 /**
@@ -101,22 +177,4 @@ interface AdapterTouchListener {
      * @see RecyclerView.ViewHolder.getAdapterPosition
      */
     fun onItemDismiss(position: Int)
-}
-
-/**
- * Interface to notify an item ViewHolder of relevant callbacks from
- * [TouchHelperCallback].
- */
-interface ViewHolderTouchListener {
-    /**
-     * Called when the [ItemTouchHelper] first registers an item as being moved or swiped.
-     * Implementations should update the item view to indicate it's active state.
-     */
-    fun onItemSelected()
-
-    /**
-     * Called when the [ItemTouchHelper] has completed the move or swipe, and the active
-     * item state should be cleared.
-     */
-    fun onItemClear()
 }
