@@ -20,6 +20,7 @@ import android.arch.lifecycle.*
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -38,6 +39,8 @@ import java.util.*
 class TouchableVerticalListActivity : AppCompatActivity() {
 
     private lateinit var mState: State
+    val SPAN_COUNT = 3
+    var mUseList = false
 
     private fun setupViewModel() {
         mState = ViewModelProviders.of(this).get(State::class.java)
@@ -50,8 +53,14 @@ class TouchableVerticalListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_touch_vertical_list)
         setupViewModel()
+        mUseList =
+                when (getString(R.string.list_orientation)) {
+                    "list" -> true
+                    "grid" -> false
+                    else -> false
+                }
+        setContentView(R.layout.activity_touch_vertical_list)
         find<RecyclerView>(R.id.rv_touch_vertical_list_container).let {
             setupRecyclerView(it)
         }
@@ -59,12 +68,14 @@ class TouchableVerticalListActivity : AppCompatActivity() {
 
     fun setupRecyclerView(recyclerView: RecyclerView) {
         // Create layout manager
-        var layoutManager: LinearLayoutManager =
-                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                        .apply {
-                            // Set layout manager
-                            recyclerView.layoutManager = this
-                        }
+        var layoutManager: RecyclerView.LayoutManager =
+                if (mUseList) {
+                    LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                } else {
+                    GridLayoutManager(this, SPAN_COUNT)
+                }
+        // Set layout manager
+        recyclerView.layoutManager = layoutManager
 
         // Create adapter
         DataAdapter(
@@ -88,7 +99,12 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
             fun saveListPosition() {
-                mState.position = layoutManager.findFirstVisibleItemPosition()
+                mState.position =
+                        when (layoutManager) {
+                            is LinearLayoutManager -> layoutManager.findFirstVisibleItemPosition()
+                            is GridLayoutManager -> layoutManager.findFirstVisibleItemPosition()
+                            else -> 0
+                        }
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -123,6 +139,7 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
+            // Todo Use a different cell renderer for GridLayoutManager based on mUseList
             parent.context.layoutInflater.inflate(
                     R.layout.item_touch_vertical_list_row,
                     parent,
