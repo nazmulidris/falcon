@@ -21,7 +21,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "recyclerview.nazmul.com.astudyinrecyclerview"
         minSdkVersion 16
@@ -36,35 +36,39 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.android.support:appcompat-v7:$compat_version"
+
+    // Physics based animation
+    implementation "com.android.support:support-dynamic-animation:$compat_version"
 
     // Lorem Ipsum Generator
     implementation 'com.thedeanda:lorem:2.1'
 
     // Lifecycles
-    implementation "android.arch.lifecycle:runtime:1.0.3"
+    implementation 'android.arch.lifecycle:runtime:1.0.3'
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
-    implementation "android.arch.lifecycle:common-java8:1.0.0"
+    implementation 'android.arch.lifecycle:common-java8:1.0.0'
 
     // ViewModel, LiveData
-    implementation "android.arch.lifecycle:extensions:1.0.0"
+    implementation 'android.arch.lifecycle:extensions:1.0.0'
 
     // ConstraintLayout
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // Design Support Library
-    implementation 'com.android.support:design:26.1.0'
+    implementation "com.android.support:design:$compat_version"
 
     // RecyclerView
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation "com.android.support:recyclerview-v7:$compat_version"
 
     // CardView
-    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation "com.android.support:cardview-v7:$compat_version"
 
     // Anko
     compile "org.jetbrains.anko:anko:$anko_version"
@@ -101,6 +105,4 @@ dependencies {
 
     // ConstraintLayout
     compile "org.jetbrains.anko:anko-constraint-layout:$anko_version"
-
-
 }
