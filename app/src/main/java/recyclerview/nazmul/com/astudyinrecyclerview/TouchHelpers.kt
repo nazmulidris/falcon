@@ -23,6 +23,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.support.v7.widget.helper.ItemTouchHelper.*
+import android.view.View
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -105,18 +106,8 @@ class TouchHelperCallback(val mAdapter: AdapterTouchListener) :
                                    actionState: Int) {
         info { "onSelectedChanged -> ${actionStateString(actionState)}" }
         when (actionState) {
-            ACTION_STATE_DRAG -> viewHolder?.itemView?.apply {
-                with(AnimatorInflater.loadAnimator(context, R.animator.scale_up)) {
-                    setTarget(this@apply)
-                    start()
-                }
-            }
-            ACTION_STATE_SWIPE -> viewHolder?.itemView?.apply {
-                with(AnimatorInflater.loadAnimator(context, R.animator.pulse)) {
-                    setTarget(this@apply)
-                    start()
-                }
-            }
+            ACTION_STATE_DRAG -> viewHolder?.itemView?.animateScaleUp()
+            ACTION_STATE_SWIPE -> viewHolder?.itemView?.animatePulse()
             ACTION_STATE_IDLE -> viewHolder?.itemView?.apply {}
         }
         super.onSelectedChanged(viewHolder, actionState)
@@ -130,11 +121,27 @@ class TouchHelperCallback(val mAdapter: AdapterTouchListener) :
         viewHolder?.itemView?.alpha = 1.0f
 
         // for onSelectedChanged()
-        viewHolder?.itemView?.apply {
-            with(AnimatorInflater.loadAnimator(recyclerView.context, R.animator.scale_normal)) {
-                setTarget(this@apply)
-                start()
-            }
+        viewHolder?.itemView?.animateScaleNormal()
+    }
+
+    fun View.animatePulse() {
+        AnimatorInflater.loadAnimator(context, R.animator.pulse).let {
+            it.setTarget(this)
+            it.start()
+        }
+    }
+
+    fun View.animateScaleUp() {
+        AnimatorInflater.loadAnimator(context, R.animator.scale_up).let {
+            it.setTarget(this)
+            it.start()
+        }
+    }
+
+    fun View.animateScaleNormal() {
+        AnimatorInflater.loadAnimator(context, R.animator.scale_normal).let {
+            it.setTarget(this)
+            it.start()
         }
     }
 
