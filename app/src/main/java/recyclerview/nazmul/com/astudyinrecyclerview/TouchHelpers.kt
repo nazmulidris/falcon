@@ -39,6 +39,9 @@ import org.jetbrains.anko.info
  * attach this callback to it.
  * - You also need to attach a [RecyclerView] to
  * the [ItemTouchHelper.attachToRecyclerView] function.
+ *
+ * More info:
+ * - [Medium articles on drag & drop, swipe to dismiss](https://goo.gl/trCJy5)
  */
 class TouchHelperCallback(val mAdapter: AdapterTouchListener) :
         ItemTouchHelper.Callback(), AnkoLogger {
