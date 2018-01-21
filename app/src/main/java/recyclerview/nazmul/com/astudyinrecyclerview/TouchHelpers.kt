@@ -77,10 +77,11 @@ class TouchHelperCallback(val mAdapter: AdapterTouchListener) :
         mAdapter.onItemDismiss(viewHolder.adapterPosition)
     }
 
-    // The following function overrides are optional. They aren't required
-    // for the drag and drop, and swipe to dismiss to work. They are purely
-    // for adding more control over the UI effects of swipe, select,
-    // deselect, and dismiss.
+    // All the following function overrides are optional:
+    // [onChildDraw], [onSelectedChanged], and [clearView].
+    // They aren't required for the drag and drop, and swipe to
+    // dismiss to work. They are purely for adding more control
+    // over the UI effects of swipe, select, deselect, and dismiss.
 
     override fun onChildDraw(c: Canvas,
                              recyclerView: RecyclerView,
