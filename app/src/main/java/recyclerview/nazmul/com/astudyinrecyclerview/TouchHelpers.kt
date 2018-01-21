@@ -18,6 +18,9 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 
 import android.animation.AnimatorInflater
 import android.graphics.Canvas
+import android.support.animation.FloatPropertyCompat
+import android.support.animation.SpringAnimation
+import android.support.animation.SpringForce
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -26,6 +29,8 @@ import android.support.v7.widget.helper.ItemTouchHelper.*
 import android.view.View
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+
+
 
 
 /**
@@ -125,6 +130,36 @@ class TouchHelperCallback(val mAdapter: AdapterTouchListener) :
     }
 
     fun View.animatePulse() {
+
+        val forceConstant = 500f
+        val scaleProperty = object : FloatPropertyCompat<View>("scaleProperty") {
+            override fun getValue(view: View): Float {
+                // Return the value of any one property
+                return view.scaleX
+            }
+
+            override fun setValue(view: View, value: Float) {
+                // Apply the same value to two properties
+                with(value / forceConstant + 1f) {
+                    view.scaleX = this
+                    view.scaleY = this
+                }
+            }
+        }
+        val force = (SpringForce()).apply {
+            finalPosition = 1f
+            dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
+            stiffness = SpringForce.STIFFNESS_MEDIUM
+        }
+        with(SpringAnimation(this, scaleProperty)) {
+            spring = force
+            setStartVelocity(5f * forceConstant)
+            start()
+        }
+
+    }
+
+    fun View.animatePulseOld() {
         AnimatorInflater.loadAnimator(context, R.animator.pulse).let {
             it.setTarget(this)
             it.start()
