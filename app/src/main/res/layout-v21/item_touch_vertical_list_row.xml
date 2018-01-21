@@ -22,8 +22,7 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/ripple"
-    >
+    android:background="@drawable/ripple">
     <!--
     More info
     https://goo.gl/Y5Ccj6 -> support lib attributes & ripple background
@@ -37,7 +36,7 @@
         android:id="@+id/text_touch_vertical_list_row"
         android:padding="16dp"
         android:textSize="16sp"
-        tools:fontFamily="@font/oxygen"
+        android:fontFamily="@font/oxygen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
