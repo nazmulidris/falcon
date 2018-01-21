@@ -1,5 +1,6 @@
 # A study in RecyclerView
 
+## Overview
 This project is an exploration of things that one can do with the RecyclerView. 
 A lot of emphasis is placed on animation (physics based, and animator based). An 
 [ItemTouchHelper.Callback](https://developer.android.com/reference/android/support/v7/widget/helper/ItemTouchHelper.Callback.html)
@@ -7,6 +8,7 @@ is also provided to demonstrate how to respond to user gesture inputs (drag and 
 swipe to dismiss) and how to integrate this with animations. Animations are also provided
 when a list view is entered (using layout animators).
 
+## Resources for learning
 Here are some great resources on learning about RecyclerView.
 - [Caster.IO course on RecyclerView](https://caster.io/courses/recycler-view)
 - [Adding click listeners](https://antonioleiva.com/recyclerview-listener/)
@@ -34,8 +36,7 @@ These resources are great for best practices for naming things in Android
 - [Guidelines for naming things in Android](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md)
 - [Cheat sheet for naming things in Android](https://jeroenmols.com/blog/2016/03/07/resourcenaming/)
 
-Video of part of the app in action
-
+## Video of part of the app in action
 <img 
 src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
 width="500"/>
