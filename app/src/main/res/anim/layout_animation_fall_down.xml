@@ -15,12 +15,10 @@
   -->
 
 <!--
-  https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-1-list-75a874a5d213
+    https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-1-list-75a874a5d213
 -->
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rv_touch_vertical_list_container"
-    android:layoutAnimation="@anim/layout_animation_fall_down"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent" />
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/item_animation_fall_down"
+    android:delay="15%"
+    android:animationOrder="normal" />
