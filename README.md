@@ -1,5 +1,10 @@
 # A study in RecyclerView
 
+## Video of part of the app in action
+<img 
+src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
+width="500"/>
+
 ## Overview
 This project is an exploration of things that one can do with the RecyclerView. 
 A lot of emphasis is placed on animation (physics based, and animator based). An 
@@ -35,8 +40,3 @@ These resources are great for best practices for naming things in Android
 (which were used to name the multitude of layout assets in this project).
 - [Guidelines for naming things in Android](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md)
 - [Cheat sheet for naming things in Android](https://jeroenmols.com/blog/2016/03/07/resourcenaming/)
-
-## Video of part of the app in action
-<img 
-src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
-width="500"/>
