@@ -18,25 +18,30 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 
 import android.arch.lifecycle.*
 import android.os.Bundle
+import android.support.animation.DynamicAnimation
+import android.support.animation.FlingAnimation
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.find
+import org.jetbrains.anko.info
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
 
-class TouchableVerticalListActivity : AppCompatActivity() {
+class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
 
     private lateinit var mState: State
     val SPAN_COUNT = 3
@@ -64,6 +69,67 @@ class TouchableVerticalListActivity : AppCompatActivity() {
         find<RecyclerView>(R.id.rv_touch_vertical_list_container).let {
             setupRecyclerView(it)
         }
+    }
+
+    private fun setupFlingAnimation(rv: RecyclerView) {}
+
+    private fun setupFlingAnimationAlt(rv: RecyclerView) {
+        rv.onFlingListener = object : RecyclerView.OnFlingListener() {
+            override fun onFling(vX: Int, vY: Int): Boolean {
+
+                info {
+                    "onFling: vX = $vX, vY = $vY" +
+                            ", maxVal: ${rv.measuredHeight}"
+                }
+
+                val fling = FlingAnimation(rv, DynamicAnimation.SCROLL_Y)
+                fling.setMinValue(0f)
+                fling.minimumVisibleChange = DynamicAnimation.MIN_VISIBLE_CHANGE_PIXELS
+                fling.setMaxValue(rv.measuredHeight.toFloat())
+                fling.setStartVelocity((-vY).toFloat())
+                fling.friction = 1.1f
+                fling.start()
+
+                return true // consume event
+
+            }
+        }
+    }
+
+    private fun setupFlingAnimationAlt2(recyclerView: RecyclerView) {
+        val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, vX: Float, vY: Float): Boolean {
+                info {
+                    "${::onFling.name}: velocityX: $vX, velocityY: $vY" +
+                            "\n\t event_down: $e1 \n\t event_move: $e2?"
+                }
+
+                FlingAnimation(recyclerView, DynamicAnimation.SCROLL_Y).apply {
+                    setStartVelocity(-vY)
+                    friction = 1.1f
+                    start()
+                }
+                return true // consume event
+            }
+
+            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, dX: Float, dY: Float): Boolean {
+                info {
+                    "${::onScroll.name}: distanceX: $dX, distanceY: $dY" +
+                            "\n\t event_down: $e1 \n\t event_move: $e2"
+                }
+                return false // do not consume event
+            }
+
+        }
+        val gestureDetector = GestureDetector(recyclerView.context, gestureListener)
+
+        recyclerView.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                //info { "onTouch ${event}" }
+                return gestureDetector.onTouchEvent(event)
+            }
+        })
+
     }
 
     fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -112,6 +178,8 @@ class TouchableVerticalListActivity : AppCompatActivity() {
                 layoutManager.scrollToPosition(mState.position)
             }
         })
+
+        setupFlingAnimation(recyclerView)
     }
 
     private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
