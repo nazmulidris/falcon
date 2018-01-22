@@ -18,8 +18,7 @@ package recyclerview.nazmul.com.astudyinrecyclerview
 
 import android.arch.lifecycle.*
 import android.os.Bundle
-import android.support.animation.DynamicAnimation
-import android.support.animation.FlingAnimation
+import android.support.animation.*
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
@@ -33,13 +32,13 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.*
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.find
-import org.jetbrains.anko.info
-import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
+
+
+
 
 class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
 
@@ -71,7 +70,53 @@ class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun setupFlingAnimation(rv: RecyclerView) {}
+    private fun setupFlingAnimation(rv: RecyclerView) {
+
+        rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (!recyclerView.canScrollVertically(1)) {
+                        toast("Last")
+                        rv.animatePulse()
+                    }
+                    if (!recyclerView.canScrollVertically(-1)) {
+                        toast("First")
+                        rv.animatePulse()
+                    }
+                }
+            }
+        })
+    }
+
+    fun RecyclerView.animatePulse() {
+
+        val forceConstant = 500f
+        val scaleProperty = object : FloatPropertyCompat<View>("scaleProperty") {
+            override fun getValue(view: View): Float {
+                // Return the value of any one property
+                return view.scaleX
+            }
+
+            override fun setValue(view: View, value: Float) {
+                // Apply the same value to two properties
+                with(value / forceConstant + 1f) {
+                    view.scaleX = this
+                    view.scaleY = this
+                }
+            }
+        }
+        val force = (SpringForce()).apply {
+            finalPosition = 1f
+            dampingRatio = SpringForce.DAMPING_RATIO_MEDIUM_BOUNCY
+            stiffness = SpringForce.STIFFNESS_MEDIUM
+        }
+        with(SpringAnimation(this, scaleProperty)) {
+            spring = force
+            setStartVelocity(2f * forceConstant)
+            start()
+        }
+
+    }
 
     private fun setupFlingAnimationAlt(rv: RecyclerView) {
         rv.onFlingListener = object : RecyclerView.OnFlingListener() {
