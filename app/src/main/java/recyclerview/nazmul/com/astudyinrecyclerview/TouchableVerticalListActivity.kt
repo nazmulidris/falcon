@@ -32,8 +32,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import org.jetbrains.anko.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.find
+import org.jetbrains.anko.info
+import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
 
@@ -68,17 +71,16 @@ class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun setupFlingAnimation(rv: RecyclerView) {
+    private fun setupHitEdgeScrollAnimation(rv: RecyclerView) {
 
+        // Detect if the scroll has it top / bottom "boundaries"
         rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     if (!recyclerView.canScrollVertically(1)) {
-                        toast("Last")
                         rv.animatePulse()
                     }
                     if (!recyclerView.canScrollVertically(-1)) {
-                        toast("First")
                         rv.animatePulse()
                     }
                 }
@@ -86,6 +88,7 @@ class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
         })
     }
 
+    // Use Physics based animator to bounce or pulse the entire RecyclerView
     private fun RecyclerView.animatePulse() {
 
         val forceConstant = 500f
@@ -116,7 +119,9 @@ class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
-    private fun setupFlingAnimationAlt(rv: RecyclerView) {
+    // FAILED - Attempted to intercept the fling gesture on RV, to then
+    // perform the scroll animation using Physics based Fling Animation.
+    private fun setupHitEdgeScrollAnimation_Alt(rv: RecyclerView) {
         rv.onFlingListener = object : RecyclerView.OnFlingListener() {
             override fun onFling(vX: Int, vY: Int): Boolean {
 
@@ -139,7 +144,10 @@ class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun setupFlingAnimationAlt2(recyclerView: RecyclerView) {
+    // FAILED - Attempted to use GestureDetector on the entire RV to detect fling
+    // gestures made by user. The idea was to stop RV from doing the scrolling itself
+    // and using a Physics based Fling Animation instead.
+    private fun setupHitEdgeScrollAnimation_Alt2(recyclerView: RecyclerView) {
         val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(e1: MotionEvent?, e2: MotionEvent?, vX: Float, vY: Float): Boolean {
                 info {
@@ -222,7 +230,7 @@ class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
             }
         })
 
-        setupFlingAnimation(recyclerView)
+        setupHitEdgeScrollAnimation(recyclerView)
     }
 
     private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
