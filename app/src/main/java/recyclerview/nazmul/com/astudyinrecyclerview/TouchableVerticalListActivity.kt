@@ -38,8 +38,6 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
 
 
-
-
 class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
 
     private lateinit var mState: State
@@ -88,7 +86,7 @@ class TouchableVerticalListActivity : AppCompatActivity(), AnkoLogger {
         })
     }
 
-    fun RecyclerView.animatePulse() {
+    private fun RecyclerView.animatePulse() {
 
         val forceConstant = 500f
         val scaleProperty = object : FloatPropertyCompat<View>("scaleProperty") {
