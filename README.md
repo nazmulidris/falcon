@@ -1,5 +1,8 @@
 # A study in RecyclerView
 
+Note the website for this project is at 
+[https://nazmulidris.github.io/recyclerview/](https://nazmulidris.github.io/recyclerview/).
+
 ## Video of part of the app in action
 <img 
 src="https://github.com/nazmulidris/recyclerview/blob/master/astudyinrecyclerview.gif?raw=true" 
