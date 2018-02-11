@@ -1,9 +1,11 @@
-# A study in RecyclerView
+# Project Falcon
 
-Note the website for this project is at 
-[uxd.engineering/](http://uxd.engineering). This URL points to the HTML and CSS files in 
-the `docs/` folder. Also this URL goes to the same place 
-[github.com/nazmulidris/recyclerview](https://github.com/nazmulidris/recyclerview).
+- Note the website for this project is at [uxd.engineering/](http://uxd.engineering). 
+- This URL points to the HTML and CSS files in the `docs/` folder. 
+- Also this URL goes to the same place 
+[github.com/nazmulidris/falcon](https://github.com/nazmulidris/falcon).
+
+# A study in RecyclerView
 
 ## Video of part of the app in action
 <img 
