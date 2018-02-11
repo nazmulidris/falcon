@@ -1,8 +1,9 @@
 # A study in RecyclerView
 
 Note the website for this project is at 
-[http://uxd.engineering/](http://uxd.engineering/). This URL points to the HTML and CSS files in 
-the `docs/` folder.
+[uxd.engineering/](http://uxd.engineering/). This URL points to the HTML and CSS files in 
+the `docs/` folder. Also this URL goes to the same place 
+[github.com/nazmulidris/recyclerview](https://github.com/nazmulidris/recyclerview).
 
 ## Video of part of the app in action
 <img 
