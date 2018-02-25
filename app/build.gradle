@@ -15,9 +15,7 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -25,18 +23,16 @@ android {
     defaultConfig {
         applicationId "recyclerview.nazmul.com.astudyinrecyclerview"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    buildToolsVersion '27.0.3'
+}
+
+ext {
+    compat_version = '27.0.2'
+    anko_version = '0.10.4'
 }
 
 dependencies {
