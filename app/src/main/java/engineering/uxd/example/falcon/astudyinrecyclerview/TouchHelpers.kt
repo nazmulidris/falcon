@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package recyclerview.nazmul.com.astudyinrecyclerview
+package engineering.uxd.example.falcon.astudyinrecyclerview
 
 import android.animation.AnimatorInflater
 import android.graphics.Canvas

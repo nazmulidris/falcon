@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="recyclerview.nazmul.com.astudyinrecyclerview">
+    package="engineering.uxd.example.falcon.astudyinrecyclerview">
 
     <application
         android:allowBackup="true"
@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LauncherActivity"
+            android:name="engineering.uxd.example.falcon.astudyinrecyclerview.LauncherActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,13 +32,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VerticalListActivity" />
-        <activity android:name=".HorizontalListActivity" />
-        <activity android:name=".VerticalGridActivity" />
-        <activity android:name=".HorizontalGridActivity" />
-        <activity android:name=".AutoOrientationChangeActivity" />
-        <activity android:name=".StaggeredGridActivity" />
-        <activity android:name=".TouchableVerticalListActivity" />
+        <activity android:name="engineering.uxd.example.falcon.astudyinrecyclerview.VerticalListActivity" />
+        <activity android:name="engineering.uxd.example.falcon.astudyinrecyclerview.HorizontalListActivity" />
+        <activity android:name="engineering.uxd.example.falcon.astudyinrecyclerview.VerticalGridActivity" />
+        <activity android:name="engineering.uxd.example.falcon.astudyinrecyclerview.HorizontalGridActivity" />
+        <activity android:name="engineering.uxd.example.falcon.astudyinrecyclerview.AutoOrientationChangeActivity" />
+        <activity android:name="engineering.uxd.example.falcon.astudyinrecyclerview.StaggeredGridActivity" />
+        <activity android:name="engineering.uxd.example.falcon.astudyinrecyclerview.TouchableVerticalListActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package recyclerview.nazmul.com.astudyinrecyclerview
+package engineering.uxd.example.falcon.astudyinrecyclerview
 
 import android.content.Context
 import android.graphics.Typeface

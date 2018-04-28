@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package recyclerview.nazmul.com.astudyinrecyclerview
+package engineering.uxd.example.falcon.astudyinrecyclerview
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -28,39 +29,33 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class VerticalGridActivity : AppCompatActivity() {
+class HorizontalListActivity : AppCompatActivity() {
 
-    val SPAN_COUNT = 3
     val mData = staticData.toList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vertical_grid)
-        find<RecyclerView>(R.id.rv_vertical_grid_container).let {
+        setContentView(R.layout.activity_horizontal_list)
+        find<RecyclerView>(R.id.rv_horizontal_list_container).let {
             setup(it)
         }
     }
 
     private fun setup(recyclerView: RecyclerView) {
         // Set layout manager
-        recyclerView.layoutManager = GridLayoutManager(
+        recyclerView.layoutManager = LinearLayoutManager(
                 this,
-                SPAN_COUNT,
-                GridLayoutManager.VERTICAL,
-                false)
-                .apply {
-                    spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            if (position != 0 && position % 5 == 0) return SPAN_COUNT else return 1
-                        }
-                    }
-                }
+                LinearLayoutManager.HORIZONTAL,
+                true)
         // Set adapter
         recyclerView.adapter = DataAdapter(object : ItemClickListener<String> {
             override fun onClick(item: String) {
                 snackbar(find<View>(android.R.id.content), item)
             }
         })
+        // Set decoration
+        recyclerView.addItemDecoration(
+                DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
     }
 
     private inner class DataAdapter(val clickListener: ItemClickListener<String>) :
@@ -73,7 +68,7 @@ class VerticalGridActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder {
             parent.context.layoutInflater.inflate(
-                    R.layout.item_vertical_grid_cell,
+                    R.layout.item_horizontal_list_cell,
                     parent,
                     false).let {
                 return RowViewHolder(it)
@@ -92,7 +87,7 @@ class VerticalGridActivity : AppCompatActivity() {
         val cellText: TextView
 
         init {
-            cellText = itemView.find(R.id.text_vertical_grid_cell)
+            cellText = itemView.find(R.id.text_horizontal_list_cell)
         }
 
         fun bindToDataItem(data: String, clickListener: ItemClickListener<String>) {
